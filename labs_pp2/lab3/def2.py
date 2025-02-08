@@ -21,19 +21,19 @@ def is_highly_rated(movie):
     return movie["imdb"] > 5.5
 
 print(is_highly_rated(movies[0]))
-
+print("                                                            ")
 # 2. Get a list of movies with an IMDB score above 5.5
 def highly_rated_movies(movies):
-    return [movie for movie in movies if movie["imdb"] > 5.5]
+    return [movie["name"] for movie in movies if movie["imdb"] > 5.5]
 
 print(highly_rated_movies(movies))
-
+print("                                                            ")
 # 3. Get movies by category
 def movies_by_category(movies, category):
     return [movie for movie in movies if movie["category"] == category]
 
 print(movies_by_category(movies, "Romance"))
-
+print("                                                            ")
 # 4. Compute the average IMDB score of a list of movies
 def average_imdb_score(movies):
     if not movies:
@@ -41,7 +41,7 @@ def average_imdb_score(movies):
     return sum(movie["imdb"] for movie in movies) / len(movies)
 
 print(average_imdb_score(movies))
-
+print("                                                            ")
 # 5. Compute the average IMDB score of movies in a category
 def average_category_imdb_score(movies, category):
     category_movies = movies_by_category(movies, category)
