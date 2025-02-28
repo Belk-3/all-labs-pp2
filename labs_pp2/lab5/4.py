@@ -1,6 +1,6 @@
 import re 
 x = input("Write here: ")
-y = re.search("^ab*$",x)
+y = re.findall()
 if y:
     print(x)
 else:

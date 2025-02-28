@@ -1,6 +1,7 @@
 import re 
 x = input("Write here: ")
-y = re.search("^ab*$",x)
+y = re.findall(r"\b[a-z]+_[a-z]+\b",x)
+
 if y:
     print(x)
 else:
