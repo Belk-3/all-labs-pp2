@@ -1,5 +1,5 @@
 # here I start a iterators
-a = "Belk"
+a = "12345"
 x = iter(a)
 print(next(x))
 print(next(x))
