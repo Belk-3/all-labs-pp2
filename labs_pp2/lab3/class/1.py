@@ -8,3 +8,5 @@ class StringManipulator:
 
     def printString(self):
         print(self.text.upper())
+# INPUT :
+#OUtput

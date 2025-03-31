@@ -1,7 +1,7 @@
 def count_lines(filename):
     try:
         with open(filename, "r", encoding="utf-8") as file:
-            return sum(1 for line in file)
+            return sum(1 for i in file )
     except FileNotFoundError:
         print("Файл не найден")
         return 0
