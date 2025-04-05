@@ -29,7 +29,7 @@ while not done:
     angle_sec = -sec * 6
     angle_min = -mon * 6
 
-    pygame.draw.rect(screen, (0,0,255),pygame.Rect(539,404,3,3))
+    pygame.draw.rect(screen, (0,0,255),pygame.Rect(539,404,10,10))
 
     screen.blit(minute,center)
     screen.blit(seconds,center )
