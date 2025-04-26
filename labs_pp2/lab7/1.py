@@ -28,7 +28,7 @@ while not done:
 
     # rotate
     rotated_sec = pygame.transform.rotate(seconds, angle_sec)
-    rotated_min = pygame.transform.rotate(minute, angle_min)
+    rotated_min = pygame.transform.rotate(minute, angle_min - 50)
 
     # get rects of rotated images and set the "pivot point" at the base of the hand
     # adjust the position so that base of the hand is at the center

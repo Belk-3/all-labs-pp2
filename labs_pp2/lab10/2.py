@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+import psycopg2
 from collections import deque
 
 # Инициализация Pygame
@@ -78,6 +79,7 @@ font = pygame.font.SysFont('Verdana', 20)
 
 # Получение имени игрока
 player_name = get_player_name()
+paused = False    
 
 # Игровой цикл
 running = True
@@ -89,6 +91,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+
     # Управление стрелками
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP] and direction != (0, CELL_SIZE):
@@ -99,6 +102,22 @@ while running:
         direction = (-CELL_SIZE, 0)
     elif keys[pygame.K_RIGHT] and direction != (-CELL_SIZE, 0):
         direction = (CELL_SIZE, 0)
+
+    #PAUSE
+    if keys[pygame.K_p]:
+        paused = not paused
+        if paused:
+            pause_text = font.render("Paused", True, WHITE)
+            screen.blit(pause_text, (WIDTH // 2 - pause_text.get_width() // 2, HEIGHT // 2 - pause_text.get_height() // 2))
+            pygame.display.flip()
+            while paused:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                    if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+                        paused = False
+                pygame.time.delay(10)
+
 
     # Движение змеи
     head_x, head_y = snake[0]
@@ -152,6 +171,32 @@ print(f"Game Over! {player_name}, your score is: {score}")
 
 pygame.quit()
 
+try:
+    # Connect to your PostgreSQL database тут кароче я подключаюсь к базе данных
+    connection = psycopg2.connect(
+        dbname="mydatabase",
+        user="postgres",
+        password="Magnat_kaef_Bekzhan",
+        host="localhost",
+        port="5432"
+    )
+    cursor = connection.cursor()
 
+    cursor.execute("""
+        INSERT INTO game(name, score)
+        VALUES (%s, %s)
+        ON CONFLICT (name)
+        DO UPDATE SET score = EXCLUDED.score;
+        """, (player_name, score))
+        
+    # а здесь зоканчивается магия
+    connection.commit()
+except Exception as e:
+    print(f"Error: {e}")
+finally:
+    #close the curs and connection
+    if cursor:
+        cursor.close()
 
-
+    if connection:
+        connection.close()
